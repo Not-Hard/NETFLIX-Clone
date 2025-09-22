@@ -1,5 +1,5 @@
 import express from 'express';
-import { searchPerson, searchMovie, searchTvShow } from '../controllers/search_controller.js';
+import { searchPerson, searchMovie, searchTvShow, getSearchHistory, deleteSearchHistoryItem } from '../controllers/search_controller.js';
 
 const router = express.Router();
 
@@ -7,6 +7,10 @@ const router = express.Router();
 router.get('/person/:query', searchPerson);
 router.get('/movie/:query', searchMovie);
 router.get('/tvshow/:query', searchTvShow);
+
+router.get('/history', getSearchHistory);
+
+router.delete('/history/:id', deleteSearchHistoryItem);
 
 
 

@@ -1,3 +1,4 @@
+import { parse } from "dotenv";
 import User from "../models/user_model.js";
 import { fetchfromTMDB } from "../services/tmbd_services.js"
 
@@ -84,5 +85,33 @@ export async function searchTvShow(req, res) {
     }catch (error) {
         res.status(500).json({ success: false, message: "Failed to search tv show" });
         console.error("Error searching tv show:", error.message);
+    }
+}
+
+export async function getSearchHistory(req, res) {
+    try {
+        res.status(200).json({ success: true, content: req.user.searchHistory });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Failed to fetch search history" });
+        console.error("Error fetching search history:", error.message);
+    }
+}
+
+export async function deleteSearchHistoryItem(req, res) {
+    let { id } = req.params;
+    id = parseInt(id);
+    try {
+        await User.findByIdAndUpdate(req.user._id, {
+            $pull: {
+                searchHistory: { id : id }
+            }
+        });
+
+
+        res.status(200).json({ success: true, message: "Search history item deleted" });
+
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Failed to delete search history item" });
+        console.error("Error deleting search history item:", error.message);
     }
 }
