@@ -130,10 +130,72 @@ const AuthScreen = () => {
         {/* Separator */}
         <div className="h-2 w-full bg-[#232323]" aria-hidden="true"/>
 
+
         {/* 3rd section */}
+                <div className="py-10 bg-black text-white">
+            <div className='flex max-w-6xl  mx-auto items-center justify-center md:flex-row flex-col px-4 md:px-2 '>
+                {/* Left Side */}
+                <div className='flex-1 text-center md:text-left'> 
+                    <h1 className='text-4xl md:text-5xl font-bold'>Watch everywhere</h1>
+                    <p className='text-xl md:text-2xl mt-4 text-gray-300'>Stream on any device, including Smart TVs, game consoles, and mobile phones.</p>
+                </div>
+                {/* Right Side */}
+                <div className="flex-1 relative flex justify-center items-center">
+                    <div className="relative">
+                        <img
+                        src="/device-pile.png"
+                        alt="Device image"
+                        className="relative z-10 mx-auto"
+                        />
+                        <video
+                        className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[75%] z-0"
+                        playsInline
+                        autoPlay
+                        muted
+                        loop
+                        >
+                            <source src="/video-devices.m4v" type="video/mp4" />
+                        </video>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        {/* Separator */}
+        <div className="h-2 w-full bg-[#232323]" aria-hidden="true"/>
+
+
+        {/* 4th section */}
+        <div className="py-10 bg-black text-white">
+            <div className='flex max-w-6xl  mx-auto items-center justify-center md:flex-row flex-col px-4 md:px-2'>
+
+                {/* Left Side */}
+                <div className='flex-1'>
+                    <div className=' relative'>
+                        <img src='/kids.png' alt='Kids Img' className='mt-4'/>
+                    </div>
+                </div>
+
+                {/* Right Side */}
+                <div className='flex-1 '>
+                    <h1 className='text-4xl md:text-5xl font-bold text-center md:text-left'>Create profiles for kids.</h1>
+                    <p className='text-xl md:text-2xl mt-4 text-gray-300 text-center md:text-left'>Give kids their own space to play and explore.</p>
+                </div>
+            </div>
+        </div>
+
+
+        {/* Separator */}
+        <div className="h-2 w-full bg-[#232323]" aria-hidden="true"/>
+
+
+        {/* footer */}
+
 
     </div>
-    )
+)
 }
 
 export default AuthScreen
