@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+.hero-bg {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1)), url("demon-slayer.jpg");
+    background-size: cover;        /* scale to cover screen */
+    background-position: center;   /* center the image */
+    background-repeat: no-repeat;  /* prevent tiling */
+    width: 100%;                   /* take full width */
+    height: 100vh;                 /* take full screen height */
+}
+
+.hero-bg_2 {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1)), url("/hero.png");
+}
