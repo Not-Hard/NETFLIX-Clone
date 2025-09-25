@@ -1,17 +1,24 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuthStore } from '../store/authUser.js'
 
 function SignUpPage() {
 
-  const [email, setEmail] = useState('');
+
+  const {searchParams} = new URL(window.location.href);
+  const emailFromQuery = searchParams.get('email');
+
+  const [email, setEmail] = useState(emailFromQuery || '');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const { signup } = useAuthStore();
+
+
+  const handleSignUp = (e) => {
     e.preventDefault();// Prevent default form submission
-    // Handle sign-up logic here
-    console.log(email, username, password);
-  }
+    signup({ email, username, password });
+  };
 
   return <div className='hero-bg'>
     <header className=' w-full mx-auto flex items-center justify-between p-4 pl-12 '>
@@ -24,7 +31,7 @@ function SignUpPage() {
       <div className='w-full max-w-md bg-black/50 p-8 shadow-md space-y-6 rounded-lg'>
         <h1 className='text-center font-bold text-2xl text-white mb-4'>Sign Up</h1>
 
-        <form className='space-y-4' onSubmit={handleSubmit}>
+        <form className='space-y-4' onSubmit={handleSignUp}>
           <div>
             <label className='text-white mb-2 block' htmlFor="email">Email</label>
             <input 

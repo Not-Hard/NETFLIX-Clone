@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import { ENV_VARS } from './config/envVars.js';
 import { connectDB } from './config/db.js';
 
-import protectRoute from './middleware/protectRoute.js';
+import { protectRoute } from './middleware/protectRoute.js';
 
 import authRoutes from './routes/auth_route.js';
 import movieRoutes from './routes/movie_route.js';

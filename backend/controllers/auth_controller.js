@@ -1,5 +1,5 @@
 import bcryptjs from 'bcryptjs';
-import  User  from '../models/user_model.js';
+import User from '../models/user_model.js';
 import { generateTokenAndSetCookie } from '../utils/generateToken.js';
 
 
@@ -118,4 +118,18 @@ export async function logout(req, res) {
     }
 }
 
+export async function authCheck(req, res) {
+    console.log("auth check called",req.user);
+    try {
+        // The protectRoute middleware ensures that req.user is populated
+        if (req.user) {
+            return res.status(200).json({ success: true, user: req.user });
+        } else {
+            return res.status(401).json({ success: false, message: 'Unauthorized access' });
+        }
+    } catch (error) {
+        console.error("Error in authCheck controller:", error.message);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+}
 
