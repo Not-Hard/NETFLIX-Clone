@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/user_model.js';
+import  User  from '../models/user_model.js';
 import { ENV_VARS } from '../config/envVars.js';
 
 // Middleware to protect routes and ensure the user is authenticated before accessing certain endpoints
-const protectRoute = async (req, res, next) => {
+export const protectRoute = async (req, res, next) => {
     try {
         const token = req.cookies["jwt-netflix"];
 
@@ -34,5 +34,5 @@ const protectRoute = async (req, res, next) => {
     }
 };
 
-export default protectRoute;
+
 
