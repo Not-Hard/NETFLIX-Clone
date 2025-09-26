@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { create } from 'zustand'
 
 export const useAuthStore = create((set) => ({
-    user: null,
+    user: null, 
     isSigningUp: false,
     isCheckingAuth: true,
     isLoadingOut: false,
@@ -15,7 +15,7 @@ export const useAuthStore = create((set) => ({
             set({user:response.data.user, isSigningUp:false});
             toast.success("Account created successfully");
         } catch (error) {
-            toast.error(error.response.data.message || "An error occurred");
+            toast.error(error.response.data.message || "Sign up failed");
             set({isSigningUp:false,user:null});
         }
     },
@@ -26,8 +26,8 @@ export const useAuthStore = create((set) => ({
             set({user:response.data.user, isLoggingIn:false});
             toast.success("login successfully");
         } catch (error) {
-            toast.error(error.response.data.message || "An error occurred");
-            set({isSigningUp:false,user:null});
+            toast.error(error.response.data.message || "Login failed");
+            set({isLoggingIn:false,user:null});
         }
     },
     logout: async () => {
