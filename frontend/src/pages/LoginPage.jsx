@@ -1,21 +1,25 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { useAuthStore } from '../store/authUser.js'
 
 function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const {login} = useAuthStore();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle login logic here
     console.log(email, password);
+    login({email, password});
   }
 
   return <div className='hero-bg'>
     <header className=' w-full mx-auto flex items-center justify-between p-4 pl-12 '>
       <Link to={"/"}>
-        <img src="/netflix-logo.png" alt="Logo" className='w-52' />
+        <img src="/netflix-logo.png" alt="Logo" className='w-32 md:w-40' />
       </Link>
     </header>
 
