@@ -4,13 +4,13 @@ export async function getTrendingTVShow(req, res) {
     try {
         const data = await fetchfromTMDB("https://api.themoviedb.org/3/trending/tv/day?language=en-US");
         const randomTVShow = data.results[Math.floor(Math.random() * data.results?.length)];
-        res.status(200).json({ success: true, content: randomTVShow });
+        res.status(200).json({ success: true, content: randomTVShow});
     } catch (error) {
         if(error.message.includes("404")) {
             return res.status(404).send(null);
         }
         res.status(500).json({ success: false, message: "Failed to fetch trending TV show" });
-        console.error("Error fetching trending TV shows:", error.message);
+        console.error("Error fetching trending TV shows:", error);
     }
 
 }
@@ -56,13 +56,9 @@ export async function getSimilarTVShows(req, res) {
 
 export async function getTVShowsByCategory(req, res) {
     const { category } = req.params;
-    const validCategories = ["popular", "top_rated", "on_the_air", "airing_today"];
-    if (!validCategories.includes(category)) {
-        return res.status(400).json({ success: false, message: "Invalid category" });
-    }
     try {
         const data = await fetchfromTMDB(`https://api.themoviedb.org/3/tv/${category}?language=en-US&page=1`);
-        res.status(200).json({ success: true, tvShows: data.results });
+        res.status(200).json({ success: true, content: data.results });
     } catch (error) {
         res.status(500).json({ success: false, message: "Failed to fetch TV shows by category" });
         console.error("Error fetching TV shows by category:", error.message);

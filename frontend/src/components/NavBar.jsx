@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { LogOut, Menu, Search } from "lucide-react"
 import { useAuthStore } from "../store/authUser.js"
+import { useContentStore } from "../store/content.js"
 
 const NavBar = () => {
 
@@ -9,6 +10,9 @@ const NavBar = () => {
     const {user, logout} = useAuthStore();
 
     const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+
+    const { setContentType} = useContentStore();
+
 
     return (
         <header className="max-w-6xl mx-auto p-4 h-20 flex flex-wrap justify-between items-center">
@@ -20,18 +24,18 @@ const NavBar = () => {
             {/* Desktop navbar Items */}
             <div className="hidden sm:flex items-center gap-2">
 
-                <Link to={"/Movies"} 
-                    className="text-white hover:underline hover:underline-offset-8">
+                <Link to={"/"} 
+                    className="text-white hover:underline hover:underline-offset-8" onClick={() => setContentType('movie')}>
                         Movies
                 </Link>
 
-                <Link to={"/TVShow"} 
-                    className="text-white hover:underline hover:underline-offset-8">
+                <Link to={"/"} 
+                    className="text-white hover:underline hover:underline-offset-8" onClick={() => setContentType('tvshow')}>
                         TV Show
                 </Link>
 
                 <Link to={"/SearchHistory"} 
-                    className="text-white hover:underline hover:underline-offset-8">
+                    className="text-white hover:underline hover:underline-offset-8" onClick={() => setContentType('search')}>
                         Search History
                 </Link>
 

@@ -9,7 +9,7 @@ import { protectRoute } from './middleware/protectRoute.js';
 import authRoutes from './routes/auth_route.js';
 import movieRoutes from './routes/movie_route.js';
 import tvShowRoutes from './routes/tvshow_route.js';
-import searchRoutes from './routes/search_Route.js';
+import searchRoutes from './routes/search_route.js';
 
 const app = express();
 

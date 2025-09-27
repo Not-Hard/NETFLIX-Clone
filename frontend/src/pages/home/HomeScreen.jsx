@@ -1,17 +1,36 @@
-import React from 'react'
-import NavBar from '../../components/NavBar.jsx'
 import { Link } from 'react-router-dom'
 import { Info, Play } from 'lucide-react'
+import { ORIGINAL_IMAGE_URL } from '../../utils/constants'
+import { useContentStore } from '../../store/content.js'
 
+import useGetTrendingContent from '../../hooks/useGetTrendingContent.jsx'
+import MovieSlider from '../../components/MovieSlider.jsx'
+import NavBar from '../../components/NavBar'
+import { MOVIE_CATEGORIES, TV_CATEGORIES } from '../../utils/constants.js'
 
 const HomeScreen = () => {
 
+  const { trendingContent } = useGetTrendingContent();
+  const { contentType } = useContentStore();
+
+  if(!trendingContent) 
+    return (
+      <div className='h-screen relative text-white'>
+        <NavBar />
+        <div className='absolute top-0 left-0 w-full h-full flex justify-center items-center
+         bg-black/70 -z-10 shimmer'/>
+      </div>
+    );
+
   return (
     <>
-    <div className='relative h-screen text-white '>
+      <div className='relative h-screen text-white '>
       <NavBar />
 
-      <img src="/inter.png" alt="Hero img" className='absolute top-0 left-0 w-full h-full object-cover -z-50' />
+      <img src={ORIGINAL_IMAGE_URL + trendingContent?.backdrop_path} 
+        alt="Hero img" 
+        className='absolute top-0 left-0 w-full h-full object-cover -z-50' 
+      />
       <div className='absolute top-0 left-0 w-full h-full -z-50 bg-black/50' 
         aria-hidden="true"
       />
@@ -19,30 +38,51 @@ const HomeScreen = () => {
         <div className='bg-gradient-to-b from-black via-transparent to-transparent absolute top-0 left-0 w-full h-full -z-10'/>
 
         <div className='max-w-2xl '>
-          <h1 className='mt-4 text-6xl font-extrabold text-balance'>Interstellar</h1>
-          <p className='mt-2 text-lg '>2014 ‧ Science Fiction/Adventure</p>
-          <p className='mt-4 text-lg '>A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.</p>
+          <h1 className='mt-4 text-6xl font-extrabold text-balance'>
+            {trendingContent?.title || trendingContent?.name}
+          </h1>
+
+          <p className='mt-2 text-lg '>
+            {trendingContent?.release_date?.split("-")[0] || 
+             trendingContent?.first_air_date?.split("-")[0]}{" "} 
+             | {trendingContent?.adult ? "18+" : "PG-13"}
+          </p>
+          <p className='mt-4 text-lg '>
+            {trendingContent?.overview.lenght > 200 
+              ? trendingContent?.overview.slice(0, 200) + "..."
+              : trendingContent?.overview
+            }
+          </p>
         </div>
 
         <div className='flex mt-8'>
-          <Link to={"/watch/123"} className='bg-white hover:bg-white/80 font-bold mr-4 flex items-center px-4 py-2 text-black rounded'>
+          <Link to={`/watch/${trendingContent?.id}`}
+            className='bg-white hover:bg-white/80 font-bold mr-4 flex items-center px-4 py-2 text-black rounded'>
             <Play className='size-6 inline-block mr-2 fill-black' />
             Play
           </Link>
 
-          <Link to={"/watch/123"} className='bg-white hover:bg-white/80 font-bold mr-4 flex items-center px-4 py-2 text-black rounded'>
+          <Link to={`/watch/${trendingContent?.id}`}
+            className='bg-white hover:bg-white/80 font-bold mr-4 flex items-center px-4 py-2 text-black rounded'>
             <Play className='size-6 inline-block mr-2 fill-black' />
             Trailer
           </Link>
- 
-          
-          <Link to={"/watch/123"} className='bg-grey-500/70 text-white hover:bg-grey-500  rounded items-center flex px-4 py-2 '>
+
+
+          <Link to={`/watch/${trendingContent?.id}`} 
+            className='bg-grey-500/70  text-white hover:bg-grey-500  rounded items-center flex px-4 py-2 '>
             <Info className='size-6 mr-2' />
             More Info
           </Link>
         </div>
       </div>
-    </div>
+      </div>
+
+      <div className='bg-black flex flex-col gap-10'>
+            {contentType === "movie" 
+            ? MOVIE_CATEGORIES.map((category) => <MovieSlider key={category} category={category} />)
+            : TV_CATEGORIES.map((category) => <MovieSlider key={category} category={category} />)}
+      </div>
     </>
   )
 }
