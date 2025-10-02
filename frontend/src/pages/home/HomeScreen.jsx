@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Info, Play } from 'lucide-react'
 import { ORIGINAL_IMAGE_URL } from '../../utils/constants'
 import { useContentStore } from '../../store/content.js'
+import { useState } from 'react'
 
 import useGetTrendingContent from '../../hooks/useGetTrendingContent.jsx'
 import MovieSlider from '../../components/MovieSlider.jsx'
@@ -12,6 +13,7 @@ const HomeScreen = () => {
 
   const { trendingContent } = useGetTrendingContent();
   const { contentType } = useContentStore();
+  const [imgLoading, setImgLoading] = useState(true);
 
   if(!trendingContent) 
     return (
@@ -27,9 +29,15 @@ const HomeScreen = () => {
       <div className='relative h-screen text-white '>
       <NavBar />
 
+      {/* Cool optimization hack for images */}
+      {imgLoading && (
+        <div className='absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black/70 -z-10 shimmer'/>
+      )}
+
       <img src={ORIGINAL_IMAGE_URL + trendingContent?.backdrop_path} 
         alt="Hero img" 
         className='absolute top-0 left-0 w-full h-full object-cover -z-50' 
+        onLoad={() => setImgLoading(false)}
       />
       <div className='absolute top-0 left-0 w-full h-full -z-50 bg-black/50' 
         aria-hidden="true"
@@ -61,16 +69,9 @@ const HomeScreen = () => {
             <Play className='size-6 inline-block mr-2 fill-black' />
             Play
           </Link>
-
-          <Link to={`/watch/${trendingContent?.id}`}
-            className='bg-white hover:bg-white/80 font-bold mr-4 flex items-center px-4 py-2 text-black rounded'>
-            <Play className='size-6 inline-block mr-2 fill-black' />
-            Trailer
-          </Link>
-
-
+          
           <Link to={`/watch/${trendingContent?.id}`} 
-            className='bg-grey-500/70  text-white hover:bg-grey-500  rounded items-center flex px-4 py-2 '>
+            className='bg-gray-500/70  text-white hover:bg-gray-500  rounded items-center flex px-4 py-2 '>
             <Info className='size-6 mr-2' />
             More Info
           </Link>

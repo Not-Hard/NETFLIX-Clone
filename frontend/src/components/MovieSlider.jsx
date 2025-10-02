@@ -20,6 +20,7 @@ function MovieSlider({category}) {
 
     useEffect(() => {
         const getContent = async () => {
+            if (contentType === 'history') return;
             // Fetch content based on category and contentType
             const res = await axios.get(`/api/v1/${contentType}/${category}`);
             setContent(res.data.content);
@@ -56,7 +57,7 @@ function MovieSlider({category}) {
             {formattedCategory} {formattedContentType}
         </h2>
 
-        <div className='flex overflow-x-scroll space-x-4 py-4 scrollbar-hidden' ref={sliderRef}>
+        <div className='flex overflow-x-scroll space-x-4 py-4 scrollbar-hide ' ref={sliderRef}>
             {content.map((item) => (
                 <Link to={`/watch/${item.id}`} className='min-w-[250px] relative group' key={item.id}>
                     <div className='rounded-lg overflow-hidden'> 

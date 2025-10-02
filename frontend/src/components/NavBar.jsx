@@ -34,8 +34,8 @@ const NavBar = () => {
                         TV Show
                 </Link>
 
-                <Link to={"/SearchHistory"} 
-                    className="text-white hover:underline hover:underline-offset-8" onClick={() => setContentType('search')}>
+                <Link to={"/history"} 
+                    className="text-white hover:underline hover:underline-offset-8" onClick={() => setContentType('history')}>
                         Search History
                 </Link>
 
@@ -58,21 +58,22 @@ const NavBar = () => {
         {isMobileMenuOpen && (
             <div className="w-full sm:hidden mt-4 z-50 bg-black border rounded border-gray-800">
 
-                <Link to={"/Movies"} 
+                <Link to={"/"} 
                     className="block w-full text-center p-2 text-white hover:underline hover:underline-offset-8"
-                    onClick={toggleMobileMenu}
+                    onClick={() => setContentType('movie')}
                     >
                         Movies
                 </Link>
-                <Link to={"/TVShow"} 
+                <Link to={"/"} 
                     className="block w-full text-center p-2 text-white hover:underline hover:underline-offset-8"
-                    onClick={toggleMobileMenu}>
+                    onClick={() => setContentType('tvshow')}
+                    >
                         TV Show
                 </Link>
 
-                <Link to={"/SearchHistory"} 
+                <Link to={"/search"} 
                     className="block w-full text-center p-2 text-white hover:underline hover:underline-offset-8"
-                    onClick={toggleMobileMenu}
+                    onClick={() => setContentType('search')}
                     >
                         Search History
                 </Link>

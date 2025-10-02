@@ -9,6 +9,7 @@ const useGetTrendingContent = () => {
 
   useEffect(() => {
     const getTrendingContent = async () => {
+      if (contentType === 'history') return;
         const response = await axios.get(`/api/v1/${contentType}/trending`);
         setTrendingContent(response.data.content);
     };
