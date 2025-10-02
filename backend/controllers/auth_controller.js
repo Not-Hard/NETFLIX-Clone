@@ -119,7 +119,6 @@ export async function logout(req, res) {
 }
 
 export async function authCheck(req, res) {
-    console.log("auth check called",req.user);
     try {
         // The protectRoute middleware ensures that req.user is populated
         if (req.user) {

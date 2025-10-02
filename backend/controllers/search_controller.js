@@ -1,4 +1,3 @@
-import { parse } from "dotenv";
 import User from "../models/user_model.js";
 import { fetchfromTMDB } from "../services/tmbd_services.js"
 
