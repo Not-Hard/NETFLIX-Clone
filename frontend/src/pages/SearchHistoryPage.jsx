@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useAuthStore } from '../store/authUser.js';
-import { useContentStore } from '../store/content.js';
 import NavBar from '../components/NavBar.jsx';
 import { SMALL_IMAGE_URL } from '../utils/constants.js';
 import { Trash } from 'lucide-react';
